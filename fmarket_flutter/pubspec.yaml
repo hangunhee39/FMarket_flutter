@@ -19,6 +19,8 @@ dependencies:
   dio: ^5.4.0
   retrofit: ^4.0.3
   get_it: ^7.6.6
+  logger: ^2.0.2+1 #Exception 공통화
+  mocktail: ^1.0.2 #Unit test
 
 dev_dependencies:
   flutter_test:
