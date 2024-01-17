@@ -1,7 +1,7 @@
 
 import 'package:dio/dio.dart';
 
-//SingleToon
+//SingleTon
 class RestClient {
   final Dio _dio = Dio();
 
