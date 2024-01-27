@@ -12,7 +12,7 @@ void main() async {
   //final menus = await DisplayUsecase(DisplayRepositoryImpl(DisplayMockApi())).execute(usecase: GetMenuUsecase(MallType.market));
   //get_it(의존성) 사용
   final menus = await locator<DisplayUsecase>()
-      .execute(usecase: GetMenuUsecase(MallType.market));
+      .execute(usecase: GetMenuUsecase(mallType:MallType.market));
   print(menus);
   runApp(const MyApp());
 }

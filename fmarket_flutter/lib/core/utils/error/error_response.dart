@@ -3,6 +3,6 @@ class ErrorResponse {
   final String? code;
   final String? message;
 
-  ErrorResponse(
+  const ErrorResponse(
       {this.message = 'SUCCESS', this.code = "0000", this.status = '',});
 }

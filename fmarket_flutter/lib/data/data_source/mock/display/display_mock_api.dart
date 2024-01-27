@@ -8,12 +8,18 @@ import 'display_mock_data.dart';
 class DisplayMockApi implements DisPlayApi{
   @override
   Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(String mallType) {
-    return Future(() => ResponseWrapper(
-      data: _menuParser(
-        (mallType == 'market')
-            ? DisplayMockData.menusByMarket
-            : DisplayMockData.menusByBeauty,
-      ),),
+    return Future.delayed(
+      const Duration(milliseconds: 400),
+          () => ResponseWrapper(
+        status: 'ERROR',
+        code: '0000',
+        message: '',
+        data: _menuParser(
+          mallType == 'market'
+              ? DisplayMockData.menusByMarket
+              : DisplayMockData.menusByBeauty,
+        ),
+      ),
     );
   }
 

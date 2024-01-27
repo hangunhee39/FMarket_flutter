@@ -31,7 +31,7 @@ void main() {
     test('의존성이 정상적으로 주입되었다.', () => expect(displayUsecase, isNotNull));
 
     test('메뉴리스트 성공', () async {
-      final result = Result.Success([Menu(tabId: -1, title: '패캠추천')]);
+      final result = Result.success([Menu(tabId: -1, title: '패캠추천')]);
       final usecase = MockGetMenusUsecase();
 
       when(() => usecase.mallType).thenReturn(MallType.market);
