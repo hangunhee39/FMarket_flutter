@@ -7,6 +7,8 @@ import '../../../domain/usecase/display/display.usecase.dart';
 import '../../../service_locator.dart';
 import '../../main/cubit/mall_type_cubit.dart';
 import 'bloc/menu_bloc/menu_bloc.dart';
+import 'component/global_nav/global_nav_bar.dart';
+import 'component/global_nav/global_nav_bar_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -39,9 +41,27 @@ class HomePageView extends StatelessWidget {
           switch (state.status) {
             case Status.initial:
             case Status.loading:
-              return const Center(child: CircularProgressIndicator());
+              return DefaultTabController(
+                key: ValueKey<MallType>(state.mallType),
+                length: state.menus.length,
+                child: Column(
+                  children: [
+                    GlobalNavBar(state.menus),
+                    GlobalNavBarView(state.mallType, state.menus),
+                  ],
+                ),
+              );
             case Status.success:
-              return Center(child: Text("${state.menus}"));
+              return DefaultTabController(
+                key: ValueKey<MallType>(state.mallType),
+                length: state.menus.length,
+                child: Column(
+                  children: [
+                    GlobalNavBar(state.menus),
+                    GlobalNavBarView(state.mallType, state.menus),
+                  ],
+                ),
+              );
             case Status.error:
               return Center(child: Text("${state.error}"));
           }

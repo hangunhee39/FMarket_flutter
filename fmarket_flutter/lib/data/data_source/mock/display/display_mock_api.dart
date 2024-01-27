@@ -11,7 +11,7 @@ class DisplayMockApi implements DisPlayApi{
     return Future.delayed(
       const Duration(milliseconds: 400),
           () => ResponseWrapper(
-        status: 'ERROR',
+        status: 'SUCCESS',
         code: '0000',
         message: '',
         data: _menuParser(
