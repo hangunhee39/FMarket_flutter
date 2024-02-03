@@ -1,10 +1,11 @@
 
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../dto/common/response_wrapper/response_wrapper.dart';
-import '../../dto/display/menu/menu_dto.dart';
+import '../../dto/display/display.dto.dart';
 
 part 'display.api.g.dart';
 
@@ -14,4 +15,8 @@ abstract class DisPlayApi {
 
   @GET('/api/menus/{mall_type}')
   Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(@Path('mall_type') String mallType);
+
+
+  @GET('/api/view_modules/{tab_id}')
+  Future<ResponseWrapper<List<ViewModelDto>>> getMenuModuleByTabId(@Path('tab_id') int tabId);
 }

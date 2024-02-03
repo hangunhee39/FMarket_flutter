@@ -1,8 +1,21 @@
-import '../../domain/model/display/menu.model.dart';
-import '../dto/display/menu/menu_dto.dart';
 
-extension MenuX on MenuDto{
-  Menu toModel(){
+
+import '../../domain/model/display/display.model.dart';
+import '../dto/display/display.dto.dart';
+
+extension MenuX on MenuDto {
+  Menu toModel() {
     return Menu(tabId: tabId ?? -1, title: title ?? '');
+  }
+}
+
+extension ViewModuleX on ViewModelDto {
+  ViewModule toModel() {
+    return ViewModule(
+      type: type ?? '',
+      title: title ?? '',
+      subtitle: subtitle ?? '',
+      imageUrl: imageUrl ?? '',
+    );
   }
 }
