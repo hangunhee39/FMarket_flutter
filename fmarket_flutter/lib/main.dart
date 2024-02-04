@@ -12,7 +12,7 @@ void main() async {
   setLocator();
   //final menus = await DisplayUsecase(DisplayRepositoryImpl(DisplayMockApi())).execute(usecase: GetMenuUsecase(MallType.market));
   //get_it(의존성) 사용
-  final data = await locator<DisPlayApi>().getMenuModuleByTabId(10001);
+  final data = await locator<DisPlayApi>().getMenuModuleByTabId(10001,0);
   print(data);
 
   final menus = await locator<DisplayUsecase>()

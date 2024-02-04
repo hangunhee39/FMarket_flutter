@@ -26,9 +26,22 @@ class DisplayMockApi implements DisPlayApi {
   }
 
   @override
-  Future<ResponseWrapper<List<ViewModelDto>>> getMenuModuleByTabId(int tabId) {
+  Future<ResponseWrapper<List<ViewModelDto>>> getMenuModuleByTabId(
+      int tabId, int page) {
     late String source;
     final endOfTapId = tabId % 10;
+    if (page == 4) {
+      return Future.delayed(
+        const Duration(milliseconds: 1000),
+        () => ResponseWrapper(
+          status: 'SUCCESS',
+          code: '0000',
+          message: '',
+          data: [],
+        ),
+      );
+    }
+
     switch (endOfTapId) {
       case 1:
         source = DisplayMockData.viewModulesByTabIdCaseOne;
@@ -42,7 +55,8 @@ class DisplayMockApi implements DisPlayApi {
         source = DisplayMockData.viewModulesByTabIdCaseFive;
     }
 
-    return Future(
+    return Future.delayed(
+      const Duration(milliseconds: 1000),
       () => ResponseWrapper(
         status: 'SUCCESS',
         code: '0000',

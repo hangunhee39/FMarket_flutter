@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<MallTypeCubit, MallType>(
       builder: (context, state) {
         return BlocProvider(
-          create: (_) => MenuBloc(locator<DisplayUsecase>())
+          create: (_) => locator<MenuBloc>()
             ..add(MenuInitialized(mallType: state)),
           child: const HomePageView(),
         );

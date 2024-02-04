@@ -1,4 +1,3 @@
-
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
@@ -14,9 +13,12 @@ abstract class DisPlayApi {
   factory DisPlayApi(Dio dio, {String baseUrl}) = _DisPlayApi;
 
   @GET('/api/menus/{mall_type}')
-  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(@Path('mall_type') String mallType);
-
+  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
+      @Path('mall_type') String mallType,);
 
   @GET('/api/view_modules/{tab_id}')
-  Future<ResponseWrapper<List<ViewModelDto>>> getMenuModuleByTabId(@Path('tab_id') int tabId);
+  Future<ResponseWrapper<List<ViewModelDto>>> getMenuModuleByTabId(
+    @Path('tab_id') int tabId,
+    @Query("page") int page,
+  );
 }

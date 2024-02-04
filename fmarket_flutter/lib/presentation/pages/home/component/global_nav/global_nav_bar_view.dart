@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/model/display/menu.model.dart';
-import '../../../../../domain/usecase/display/display.usecase.dart';
 import '../../../../../service_locator.dart';
 import '../../../../main/cubit/mall_type_cubit.dart';
 import '../../bloc/view_module_bloc/view_module_bloc.dart';
@@ -22,7 +21,7 @@ class GlobalNavBarView extends StatelessWidget {
           menus.length,
           (index) => BlocProvider(
             // add : 이벤트 등
-            create: (_) => ViewModuleBloc(locator<DisplayUsecase>())
+            create: (_) => locator<ViewModuleBloc>()
               ..add(ViewModuleInitialized(tabId: menus[index].tabId)),
             child: ViewModuleList(),
           ),
