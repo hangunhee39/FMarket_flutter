@@ -23,6 +23,7 @@ dependencies:
   mocktail: ^1.0.2 #Unit test
   bloc_concurrency: ^0.2.3 #스롯토링 (이벤트를 조작) / 안하면 한번에 많은 호출이됨
   stream_transform: ^2.1.0 # ''
+  injectable: ^2.3.2 # get_it .inject
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +33,7 @@ dev_dependencies:
   freezed: ^2.4.6
   json_serializable: ^6.7.1
   retrofit_generator: ^8.0.6
+  injectable_generator: ^2.4.1
 
 flutter:
   uses-material-design: true

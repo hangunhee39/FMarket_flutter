@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import '../../../../../core/utils/constant.dart';
 import '../../../../../domain/model/common/result.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,6 +18,7 @@ part 'menu_state.dart';
 
 part 'menu_bloc.freezed.dart';
 
+@Injectable()
 class MenuBloc extends Bloc<MenuEvent, MenuState> {
   final DisplayUsecase _displayUsecase;
 

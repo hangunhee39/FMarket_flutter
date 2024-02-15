@@ -2,6 +2,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import '../../../../../core/utils/constant.dart';
@@ -27,6 +28,7 @@ EventTransformer<E> _throttleDroppable<E>(Duration duration) {
   };
 }
 
+@Injectable()
 class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
   final DisplayUsecase _displayUsecase;
 
@@ -43,8 +45,12 @@ class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
     ViewModuleInitialized event,
     Emitter<ViewModuleState> emit,
   ) async {
-    emit(state.copyWith(status: Status.loading));
     final tabId = event.tabId;
+    if (event.isRefresh) {
+      emit(state.copyWith(status: Status.initial, currentPage: 1, isEndofPage: false, viewModules: []));
+    }
+
+    emit(state.copyWith(status: Status.loading));
     try {
       final response = await _fetch(tabId: tabId);
       response.when(
