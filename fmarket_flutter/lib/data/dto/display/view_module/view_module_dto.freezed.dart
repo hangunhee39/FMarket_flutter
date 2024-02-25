@@ -20,10 +20,11 @@ ViewModelDto _$ViewModelDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ViewModelDto {
-  String get type => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get subtitle => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get subtitle => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  List<ProductInfoDto>? get products => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $ViewModelDtoCopyWith<$Res> {
           ViewModelDto value, $Res Function(ViewModelDto) then) =
       _$ViewModelDtoCopyWithImpl<$Res, ViewModelDto>;
   @useResult
-  $Res call({String type, String title, String subtitle, String imageUrl});
+  $Res call(
+      {String? type,
+      String? title,
+      String? subtitle,
+      String? imageUrl,
+      List<ProductInfoDto>? products});
 }
 
 /// @nodoc
@@ -53,28 +59,33 @@ class _$ViewModelDtoCopyWithImpl<$Res, $Val extends ViewModelDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
-    Object? title = null,
-    Object? subtitle = null,
-    Object? imageUrl = null,
+    Object? type = freezed,
+    Object? title = freezed,
+    Object? subtitle = freezed,
+    Object? imageUrl = freezed,
+    Object? products = freezed,
   }) {
     return _then(_value.copyWith(
-      type: null == type
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
+              as String?,
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtitle: null == subtitle
+              as String?,
+      subtitle: freezed == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: null == imageUrl
+              as String?,
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      products: freezed == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<ProductInfoDto>?,
     ) as $Val);
   }
 }
@@ -87,7 +98,12 @@ abstract class _$$ViewModelDtoImplCopyWith<$Res>
       __$$ViewModelDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String type, String title, String subtitle, String imageUrl});
+  $Res call(
+      {String? type,
+      String? title,
+      String? subtitle,
+      String? imageUrl,
+      List<ProductInfoDto>? products});
 }
 
 /// @nodoc
@@ -101,28 +117,33 @@ class __$$ViewModelDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
-    Object? title = null,
-    Object? subtitle = null,
-    Object? imageUrl = null,
+    Object? type = freezed,
+    Object? title = freezed,
+    Object? subtitle = freezed,
+    Object? imageUrl = freezed,
+    Object? products = freezed,
   }) {
     return _then(_$ViewModelDtoImpl(
-      type: null == type
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
+              as String?,
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtitle: null == subtitle
+              as String?,
+      subtitle: freezed == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: null == imageUrl
+              as String?,
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      products: freezed == products
+          ? _value._products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<ProductInfoDto>?,
     ));
   }
 }
@@ -134,27 +155,39 @@ class _$ViewModelDtoImpl with DiagnosticableTreeMixin implements _ViewModelDto {
       {this.type = '',
       this.title = '',
       this.subtitle = '',
-      this.imageUrl = ''});
+      this.imageUrl = '',
+      final List<ProductInfoDto>? products = const <ProductInfoDto>[]})
+      : _products = products;
 
   factory _$ViewModelDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ViewModelDtoImplFromJson(json);
 
   @override
   @JsonKey()
-  final String type;
+  final String? type;
   @override
   @JsonKey()
-  final String title;
+  final String? title;
   @override
   @JsonKey()
-  final String subtitle;
+  final String? subtitle;
   @override
   @JsonKey()
-  final String imageUrl;
+  final String? imageUrl;
+  final List<ProductInfoDto>? _products;
+  @override
+  @JsonKey()
+  List<ProductInfoDto>? get products {
+    final value = _products;
+    if (value == null) return null;
+    if (_products is EqualUnmodifiableListView) return _products;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ViewModelDto(type: $type, title: $title, subtitle: $subtitle, imageUrl: $imageUrl)';
+    return 'ViewModelDto(type: $type, title: $title, subtitle: $subtitle, imageUrl: $imageUrl, products: $products)';
   }
 
   @override
@@ -165,7 +198,8 @@ class _$ViewModelDtoImpl with DiagnosticableTreeMixin implements _ViewModelDto {
       ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('subtitle', subtitle))
-      ..add(DiagnosticsProperty('imageUrl', imageUrl));
+      ..add(DiagnosticsProperty('imageUrl', imageUrl))
+      ..add(DiagnosticsProperty('products', products));
   }
 
   @override
@@ -178,12 +212,14 @@ class _$ViewModelDtoImpl with DiagnosticableTreeMixin implements _ViewModelDto {
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, title, subtitle, imageUrl);
+  int get hashCode => Object.hash(runtimeType, type, title, subtitle, imageUrl,
+      const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
   @override
@@ -201,22 +237,25 @@ class _$ViewModelDtoImpl with DiagnosticableTreeMixin implements _ViewModelDto {
 
 abstract class _ViewModelDto implements ViewModelDto {
   const factory _ViewModelDto(
-      {final String type,
-      final String title,
-      final String subtitle,
-      final String imageUrl}) = _$ViewModelDtoImpl;
+      {final String? type,
+      final String? title,
+      final String? subtitle,
+      final String? imageUrl,
+      final List<ProductInfoDto>? products}) = _$ViewModelDtoImpl;
 
   factory _ViewModelDto.fromJson(Map<String, dynamic> json) =
       _$ViewModelDtoImpl.fromJson;
 
   @override
-  String get type;
+  String? get type;
   @override
-  String get title;
+  String? get title;
   @override
-  String get subtitle;
+  String? get subtitle;
   @override
-  String get imageUrl;
+  String? get imageUrl;
+  @override
+  List<ProductInfoDto>? get products;
   @override
   @JsonKey(ignore: true)
   _$$ViewModelDtoImplCopyWith<_$ViewModelDtoImpl> get copyWith =>

@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 
 import 'constant.dart';
 
@@ -20,4 +21,16 @@ extension StringEx on String {
   }
 
   bool get isSuccess => this == 'SUCCESS';
+}
+
+extension IntEx on int {
+  String toWon() {
+    final priceFormat = NumberFormat('###,###,###,###원');
+
+    return priceFormat.format(this);
+  }
+
+  String toReview() {
+    return this > 9999 ? '9999+' : toString();
+  }
 }

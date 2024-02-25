@@ -12,6 +12,10 @@ _$ViewModelDtoImpl _$$ViewModelDtoImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String? ?? '',
       subtitle: json['subtitle'] as String? ?? '',
       imageUrl: json['imageUrl'] as String? ?? '',
+      products: (json['products'] as List<dynamic>?)
+              ?.map((e) => ProductInfoDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <ProductInfoDto>[],
     );
 
 Map<String, dynamic> _$$ViewModelDtoImplToJson(_$ViewModelDtoImpl instance) =>
@@ -20,4 +24,5 @@ Map<String, dynamic> _$$ViewModelDtoImplToJson(_$ViewModelDtoImpl instance) =>
       'title': instance.title,
       'subtitle': instance.subtitle,
       'imageUrl': instance.imageUrl,
+      'products': instance.products,
     };

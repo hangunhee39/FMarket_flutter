@@ -24,6 +24,7 @@ dependencies:
   bloc_concurrency: ^0.2.3 #스롯토링 (이벤트를 조작) / 안하면 한번에 많은 호출이됨
   stream_transform: ^2.1.0 # ''
   injectable: ^2.3.2 # get_it .inject
+  intl: #int -> string 포맷
 
 dev_dependencies:
   flutter_test:
