@@ -1,5 +1,3 @@
-
-
 import '../../domain/model/display/display.model.dart';
 import '../../domain/model/display/product_info/product_info.model.dart';
 import '../dto/display/display.dto.dart';
@@ -18,7 +16,9 @@ extension ViewModuleX on ViewModelDto {
       title: title ?? '',
       subtitle: subtitle ?? '',
       imageUrl: imageUrl ?? '',
+      time: time ?? -1,
       products: products?.map((dto) => dto.toModel()).toList() ?? [],
+      tabs: tabs ?? [],
     );
   }
 }

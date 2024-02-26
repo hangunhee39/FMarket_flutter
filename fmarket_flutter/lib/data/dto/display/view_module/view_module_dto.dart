@@ -14,7 +14,9 @@ class ViewModelDto with _$ViewModelDto {
     @Default('') String? title,
     @Default('') String? subtitle,
     @Default('') String? imageUrl,
+    @Default(-1) int? time,
     @Default(<ProductInfoDto>[]) List<ProductInfoDto>? products,
+    @Default([]) List<String>? tabs,
   }) = _ViewModelDto;
 
   factory ViewModelDto.fromJson(Map<String, dynamic> json) =>

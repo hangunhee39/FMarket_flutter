@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../bloc/view_module_bloc/view_module_bloc.dart';
+import '../footer/footer.dart';
 
 //stful 이유 : 스크롤 컨트롤러 사용하기 위해
 class ViewModuleList extends StatefulWidget {
@@ -50,16 +51,33 @@ class _ViewModuleListState extends State<ViewModuleList> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       child: BlocBuilder<ViewModuleBloc, ViewModuleState>(builder: (_, state) {
+        //return Footer();
         return (state.status.isInitial || state.viewModules.isEmpty)
             ? Center(child: CircularProgressIndicator())
-            : ListView(controller: scrollController, children: [
-                ...state.viewModules,
-                if (state.status.isLoading) LoadingWidget(),
-              ]);
+            : ListView.builder(
+                controller: scrollController,
+                itemBuilder: (_, index) {
+                  if (index == state.viewModules.length - 1) {
+                    return Column(children: [
+                      state.viewModules[index],
+                      if (state.status.isLoading) LoadingWidget(),
+                      Footer(),
+                    ]);
+                  }
+
+                  return state.viewModules[index];
+                },
+                itemCount: state.viewModules.length,
+              );
+        // : ListView(controller: scrollController, children: [
+        //     ...state.viewModules,
+        //     if (state.status.isLoading) LoadingWidget(),
+        //     Footer(),
+        //   ]);
       }),
       onRefresh: () async => context
           .read<ViewModuleBloc>()
-          .add(ViewModuleInitialized(tabId: widget.tabId ,isRefresh: true)),
+          .add(ViewModuleInitialized(tabId: widget.tabId, isRefresh: true)),
     );
   }
 }

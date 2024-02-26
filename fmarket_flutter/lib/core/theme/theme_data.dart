@@ -4,6 +4,7 @@ import 'constant/app_colors.dart';
 import 'custom/custom_font_weight.dart';
 import 'custom/custom_theme.dart';
 
+//전역적인 테마 설정
 class CustomThemeData {
   static ThemeData get themeData => ThemeData(
     useMaterial3: true,

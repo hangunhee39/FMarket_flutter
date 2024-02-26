@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/utils/extensions.dart';
 import '../../../../../../domain/model/display/display.model.dart';
 import '../banner.view_module.dart';
+import '../brand_product.view_module.dart';
 import '../carousel.view_module.dart';
+import '../category_product.view_module.dart';
 import '../scroll.view_module.dart';
+import '../special_price.view_module.dart';
 import '../view_module_A.dart';
 import '../view_module_B.dart';
 import '../view_module_C.dart';
@@ -22,6 +25,9 @@ enum Modules {
   carouselViewModule,
   bannerViewModule,
   scrollViewModule,
+  specialPriceViewModule,
+  categoryProductViewModule,
+  brandProductViewModule,
 }
 
 //String -> Widget 변환 factory
@@ -53,10 +59,16 @@ extension ModulesX on Modules {
         return const ViewModuleE();
       case Modules.carouselViewModule:
         return CarouselViewModule(info: info);
-      case Modules.bannerViewModule :
+      case Modules.bannerViewModule:
         return BannerViewModule(info: info);
-      case Modules.scrollViewModule :
+      case Modules.scrollViewModule:
         return ScrollViewModule(info: info);
+      case Modules.specialPriceViewModule:
+        return SpecialPriceViewModule(info: info);
+      case Modules.categoryProductViewModule:
+        return CategoryProductViewModule(info: info);
+      case Modules.brandProductViewModule:
+        return BrandProductViewModule(info: info);
     }
   }
 }

@@ -25,6 +25,9 @@ dependencies:
   stream_transform: ^2.1.0 # ''
   injectable: ^2.3.2 # get_it .inject
   intl: #int -> string 포맷
+  lottie: #애니메이션
+
+  # url_launcher: ^6.2.5 url 이동
 
 dev_dependencies:
   flutter_test:
