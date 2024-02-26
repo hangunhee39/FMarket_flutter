@@ -39,7 +39,7 @@ class ProductCardWidget extends StatelessWidget {
               aspectRatio: imageAspect,
               child: Image.network(productInfo.imageUrl, fit: BoxFit.cover),
             ),
-            AddCartButton(),
+            AddCartButton(productInfo: productInfo,),
           ],
         ),
         SizedBox(
@@ -125,6 +125,7 @@ extension TextStyleEx on TextStyle {
     return copyWith(
       color: CustomTheme.colorScheme.contentFourth,
       decoration: TextDecoration.lineThrough,
+      decorationColor: CustomTheme.colorScheme.contentFourth,
     ).regular;
   }
 

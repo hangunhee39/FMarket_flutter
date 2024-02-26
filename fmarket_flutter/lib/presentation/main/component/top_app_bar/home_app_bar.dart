@@ -23,6 +23,7 @@ class HomeAppbar extends StatelessWidget {
                 icon: AppIcons.mainLogo,
                 color: state.theme.logoColor,
                 padding: 8,
+                onPressed: null,
               ),
               title: AnimatedContainer(
                 decoration: BoxDecoration(
@@ -81,6 +82,7 @@ class HomeAppbar extends StatelessWidget {
                       ? Theme.of(context).colorScheme.background
                       : Theme.of(context).colorScheme.primary,
                   padding: 4,
+                  onPressed: null,
                 ),
               ],
               backgroundColor: Colors.transparent,

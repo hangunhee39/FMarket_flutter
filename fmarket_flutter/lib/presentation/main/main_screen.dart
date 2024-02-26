@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'utils/bottom_sheet/cart/cart_bottom_sheet.dart';
 
-import '../../core/theme/constant/app_icons.dart';
 import '../pages/category/category_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/search/search_page.dart';
 import '../pages/user/user_page.dart';
+import 'bloc/cart_bloc/cart_bloc.dart';
 import 'component/top_app_bar/top_app_bar.dart';
 import 'cubit/bottom_nav_cubit.dart';
 import 'cubit/mall_type_cubit.dart';
@@ -35,19 +36,27 @@ class MainScreenView extends StatelessWidget {
     return Scaffold(
       //Bottom Nav index 상태 관리 (Bloc) - appBar,body,bottomNav
       appBar: TopAppBar(),
-      body: BlocBuilder<BottomNavCubit, BottomNav>(
-        builder: (_, state) {
-          switch (state) {
-            case BottomNav.home:
-              return const HomePage();
-            case BottomNav.category:
-              return const CategoryPage();
-            case BottomNav.search:
-              return const SearchPage();
-            case BottomNav.user:
-              return const UserPage();
-          }
+      body: BlocListener<CartBloc, CartState>(
+        listener: (context, state) {
+          CartBottomSheet(context)
+              .whenComplete(() => context.read<CartBloc>().add(CartClosed()));
         },
+        //카드가 닫힘에서 열림으로 바뀔때만
+        listenWhen: (prev, cur) => prev.status.isClose && cur.status.isOpen,
+        child: BlocBuilder<BottomNavCubit, BottomNav>(
+          builder: (_, state) {
+            switch (state) {
+              case BottomNav.home:
+                return const HomePage();
+              case BottomNav.category:
+                return const CategoryPage();
+              case BottomNav.search:
+                return const SearchPage();
+              case BottomNav.user:
+                return const UserPage();
+            }
+          },
+        ),
       ),
       bottomNavigationBar: BlocBuilder<BottomNavCubit, BottomNav>(
         builder: (_, state) {

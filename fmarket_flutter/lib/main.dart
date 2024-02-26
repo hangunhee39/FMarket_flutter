@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fmarket_flutter/service_locator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/theme/theme_data.dart';
-import 'data/data_source/remote/display.api.dart';
 import 'dependency_injection.dart';
-import 'domain/usecase/display/display.usecase.dart';
-import 'domain/usecase/display/menu/get_menus.usecase.dart';
-import 'presentation/main/cubit/mall_type_cubit.dart';
+import 'presentation/main/bloc/cart_bloc/cart_bloc.dart';
 import 'presentation/routes/routes.dart';
 
-void main()  {
+void main() {
+  //bloc 등록 (의존성)
   configureDependencies();
   //final menus = await DisplayUsecase(DisplayRepositoryImpl(DisplayMockApi())).execute(usecase: GetMenuUsecase(MallType.market));
   //get_it(의존성) 사용
@@ -27,9 +25,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: router,
-      theme: CustomThemeData.themeData,
+    //bloc 등록 (의존성)
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<CartBloc>()..add(CartInitialized())),
+      ],
+      child: MaterialApp.router(
+        routerConfig: router,
+        theme: CustomThemeData.themeData,
+      ),
     );
   }
 }
