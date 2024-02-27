@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../pages/cart_list/cart_list_page.dart';
 import '../pages/home/home_page.dart';
 import '../main/main_screen.dart';
 import '../pages/splash/splash_page.dart';
@@ -16,6 +17,11 @@ final GoRouter router = GoRouter(
       path: RoutePath.main,
       name: "home",
       builder: (context, state) => const MainScreen(),
+    ),
+    GoRoute(
+      path: RoutePath.cart_list,
+      name: "cart_list",
+      builder: (context, state) => const CartListPage(),
     ),
   ],
   initialLocation: RoutePath.splash,

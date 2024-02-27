@@ -8,16 +8,17 @@ import 'data/entity/display/cart/cart.entity.dart';
 import 'data/entity/display/product_info/product_info.entity.dart';
 import 'dependency_injection.dart';
 import 'presentation/main/bloc/cart_bloc/cart_bloc.dart';
+import 'presentation/pages/cart_list/bloc/cart_list/cart_list_bloc.dart';
 import 'presentation/routes/routes.dart';
 
 void main() async {
-  //하이브 초기화
+  ///하이브 초기화
   await Hive.initFlutter();
-  //hive entity 등록
+  ///hive entity 등록
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
 
-  //bloc 등록 (의존성)
+  ///bloc 등록 (의존성)
   configureDependencies();
   //final menus = await DisplayUsecase(DisplayRepositoryImpl(DisplayMockApi())).execute(usecase: GetMenuUsecase(MallType.market));
   //get_it(의존성) 사용
@@ -35,9 +36,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //bloc 등록 (의존성)
+    ///bloc 등록 (의존성)
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (_) => getIt<CartListBloc>()..add(CartListInitialized()),
+          lazy: false, ///처음부터 존재하도록 (원래는 lazy 하게 필요할때 생성)
+        ),
         BlocProvider(create: (_) => getIt<CartBloc>()..add(CartInitialized())),
       ],
       child: MaterialApp.router(

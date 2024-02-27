@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
+import '../../../routes/route_path.dart';
 import '../../cubit/mall_type_cubit.dart';
 import 'widgets/svg_icon_button.dart';
 
@@ -82,7 +84,7 @@ class HomeAppbar extends StatelessWidget {
                       ? Theme.of(context).colorScheme.background
                       : Theme.of(context).colorScheme.primary,
                   padding: 4,
-                  onPressed: null,
+                  onPressed: () => context.push(RoutePath.cart_list),
                 ),
               ],
               backgroundColor: Colors.transparent,
