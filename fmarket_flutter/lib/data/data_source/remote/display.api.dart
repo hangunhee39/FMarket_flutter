@@ -10,15 +10,16 @@ part 'display.api.g.dart';
 
 @RestApi()
 abstract class DisPlayApi {
-  factory DisPlayApi(Dio dio, {String baseUrl}) = _DisPlayApi;
+  factory DisPlayApi(Dio dio) = _DisPlayApi;
 
   @GET('/api/menus/{mall_type}')
   Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
-      @Path('mall_type') String mallType,);
+    @Path('mall_type') String mallType,
+  );
 
-  @GET('/api/view_modules/{tab_id}')
+  @GET('/api/view-modules/{tab_id}/{page}')
   Future<ResponseWrapper<List<ViewModelDto>>> getMenuModuleByTabId(
     @Path('tab_id') int tabId,
-    @Query("page") int page,
+    @Path("page") int page,
   );
 }

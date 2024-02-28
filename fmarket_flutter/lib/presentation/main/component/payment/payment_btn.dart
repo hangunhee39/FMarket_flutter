@@ -19,48 +19,56 @@ class PaymentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      // BlocListener<PayMentBloc, PayMentState>(
-      // listener: (context, state) {
-      //   if (state.status == PaymentStatus.success) {
-      //     context
-      //         .read<CartListBloc>()
-      //         .add(CartListDeleted(productIds: state.productids ?? []));
-      //
-      //     CommonSnackBar.successSnackBar(context, msg: '결제가 성공적으로 진행되었습니다.');
-      //   } else {
-      //     CommonSnackBar.errorSnackBar(
-      //       context,
-      //       error: ErrorResponse(message: state.message),
-      //     );
-      //   }
-      // },child:
-      Padding(
-        padding: Constants.horizontalPadding,
-        child: SizedBox(
-          height: 48,
-          child: TextButton(
-            onPressed: null,
-            style: TextButton.styleFrom(
-              backgroundColor: selectedCartList.isNotEmpty
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.grey[400] ?? Colors.grey,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
+        // BlocListener<PayMentBloc, PayMentState>(
+        // listener: (context, state) {
+        //   if (state.status == PaymentStatus.success) {
+        //     context
+        //         .read<CartListBloc>()
+        //         .add(CartListDeleted(productIds: state.productids ?? []));
+        //
+        //     CommonSnackBar.successSnackBar(context, msg: '결제가 성공적으로 진행되었습니다.');
+        //   } else {
+        //     CommonSnackBar.errorSnackBar(
+        //       context,
+        //       error: ErrorResponse(message: state.message),
+        //     );
+        //   }
+        // },child:
+        Padding(
+      padding: Constants.horizontalPadding,
+      child: SizedBox(
+        height: 48,
+        child: TextButton(
+          onPressed: () => {
+            context.read<CartListBloc>().add(CartListDeleted(
+                  productIds: selectedCartList
+                          .map((e) => e.prodcut.productId)
+                          .toList() ??
+                      [],
+                )),
+            CommonSnackBar.successSnackBar(context, msg: '결제가 성공적으로 진행되었습니다.'),
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: selectedCartList.isNotEmpty
+                ? Theme.of(context).colorScheme.primary
+                : Colors.grey[400] ?? Colors.grey,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
-            child: Center(
-              child: Text(
-                selectedCartList.isNotEmpty
-                    ? '${totalPrice.toWon()} 결제하기'
-                    : '상품을 선택해주세요',
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-              ),
+          ),
+          child: Center(
+            child: Text(
+              selectedCartList.isNotEmpty
+                  ? '${totalPrice.toWon()} 결제하기'
+                  : '상품을 선택해주세요',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
             ),
           ),
         ),
-      );
+      ),
+    );
     //);
   }
 }

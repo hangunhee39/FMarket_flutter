@@ -14,7 +14,7 @@ class GetViewModulesUsecase extends RemoteUsecase<DisplayRepository> {
   Future<Result<List<ViewModule>>> call(DisplayRepository repository) async {
     final result = await repository.getViewModuleByTabId(tabId: tabId, page: page);
 
-    return (result.status == 'SUCCESS')
+    return (result.status == "SUCCESS")
         ? Result.success(result.data ?? [])
         : Result.failure(
             ErrorResponse(
