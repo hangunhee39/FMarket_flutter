@@ -18,3 +18,4 @@ get_it , injectable : DI
 <br> lottie : 애니메이션
 <br> ...
 
+패스트캠퍼스 플러터 강의 실습
