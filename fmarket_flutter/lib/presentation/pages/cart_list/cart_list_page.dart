@@ -6,6 +6,9 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/custom/custom_font_weight.dart';
 import '../../../core/theme/custom/custom_theme.dart';
 import '../../../core/utils/constant.dart';
+import '../../../core/utils/extensions.dart';
+import '../../../domain/model/display/cart/cart.model.dart';
+import '../../main/component/payment/payment_btn.dart';
 import '../../main/component/top_app_bar/widgets/svg_icon_button.dart';
 import 'bloc/cart_list/cart_list_bloc.dart';
 import 'cmponent/cart_product_card.dart';
@@ -92,7 +95,8 @@ class CartListView extends StatelessWidget {
                         style: textTheme.titleSmall.semiBold
                             ?.copyWith(color: colorScheme.contentSecondary),
                       ),
-                      onTap: ()=> context.read<CartListBloc>().add(CartListDeleted(productIds: state.selectedProduct)),
+                      onTap: () => context.read<CartListBloc>().add(
+                          CartListDeleted(productIds: state.selectedProduct)),
                     ),
                   ],
                 );
@@ -132,6 +136,33 @@ class CartListView extends StatelessWidget {
               );
           }
         },
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: BlocBuilder<CartListBloc, CartListState>(
+            builder: (context, state) {
+              /// fold 전체를 순환하면서 리스트의 값을 바꿈
+              List<Cart> selectedCartList = state.cartList.fold(
+                [],
+                (previousValue, cart) {
+                  if (state.selectedProduct.contains(cart.prodcut.productId)) {
+                    previousValue.add(cart);
+                  }
+
+                  return previousValue;
+                },
+              );
+
+              return state.status.isSuccess
+                  ? PaymentButton(
+                      selectedCartList: selectedCartList,
+                      totalPrice: state.totalPrice,
+                    )
+                  : SizedBox.shrink();
+            },
+          ),
+        ),
       ),
     );
   }

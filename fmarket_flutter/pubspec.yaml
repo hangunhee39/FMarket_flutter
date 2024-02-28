@@ -28,8 +28,10 @@ dependencies:
   lottie: #애니메이션
   hive: ^2.2.3    #local SQL
   hive_flutter: ^1.1.0
+  bootpay:
 
   # url_launcher: ^6.2.5 url 이동
+  # bootPay
 
 dev_dependencies:
   flutter_test:
