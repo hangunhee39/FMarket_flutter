@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
+import '../../../pages/cart_list/bloc/cart_list/cart_list_bloc.dart';
 import '../../../routes/route_path.dart';
 import '../../cubit/mall_type_cubit.dart';
 import 'widgets/svg_icon_button.dart';
@@ -78,13 +79,42 @@ class HomeAppbar extends StatelessWidget {
                     ),
                   ),
                 ),
-                SvgIconButton(
-                  icon: AppIcons.cart,
-                  color: (state.isMarket)
-                      ? Theme.of(context).colorScheme.background
-                      : Theme.of(context).colorScheme.primary,
-                  padding: 4,
-                  onPressed: () => context.push(RoutePath.cart_list),
+                Stack(
+                  children: [
+                    SvgIconButton(
+                      icon: AppIcons.cart,
+                      color: (state.isMarket)
+                          ? Theme.of(context).colorScheme.background
+                          : Theme.of(context).colorScheme.primary,
+                      padding: 4,
+                      onPressed: () => context.push(RoutePath.cart_list),
+                    ),
+                    if (context.watch<CartListBloc>().state.cartList.length !=
+                        0)
+                      Positioned(
+                        top: 2,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: state.theme.badgeBgColor,
+                            shape: BoxShape.circle,
+                          ),
+                          width: 13,
+                          height: 13,
+                          child: Center(
+                            child: Text(
+                              '${context.watch<CartListBloc>().state.cartList.length}',
+                              style: TextStyle(
+                                color: state.theme.badgeNumColor,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Pretender',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ],
               backgroundColor: Colors.transparent,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../core/utils/snack_bar/common_snack_bar.dart';
 import 'utils/bottom_sheet/cart/cart_bottom_sheet.dart';
 
 import '../pages/category/category_page.dart';
@@ -36,10 +37,16 @@ class MainScreenView extends StatelessWidget {
     return Scaffold(
       //Bottom Nav index 상태 관리 (Bloc) - appBar,body,bottomNav
       appBar: TopAppBar(),
+      ///전역적으로 bottomSheet 사용
       body: BlocListener<CartBloc, CartState>(
-        listener: (context, state) {
-          CartBottomSheet(context)
+        listener: (context, state) async {
+          final bottomSheet = await CartBottomSheet(context)
               .whenComplete(() => context.read<CartBloc>().add(CartClosed()));
+          final isSuccess = bottomSheet ?? false;
+
+          if (isSuccess) {
+            CommonSnackBar.addCartSnackBar(context);
+          }
         },
         //카드가 닫힘에서 열림으로 바뀔때만
         listenWhen: (prev, cur) => prev.status.isClose && cur.status.isOpen,

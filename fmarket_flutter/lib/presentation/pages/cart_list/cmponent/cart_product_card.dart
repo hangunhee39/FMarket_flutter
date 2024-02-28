@@ -1,33 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../core/theme/custom/custom_theme.dart';
+import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/widgets/counter_btn.dart';
+import '../../../../domain/model/display/cart/cart.model.dart';
 import '../../../main/component/top_app_bar/widgets/svg_icon_button.dart';
+import '../bloc/cart_list/cart_list_bloc.dart';
 
 const double _imageHeight = 78;
 
 const double _imageWidth = 60;
 
 class CartProductCard extends StatelessWidget {
-  const CartProductCard({super.key});
+  const CartProductCard({super.key, required this.cart});
+
+  final Cart cart;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
+    final productId = cart.prodcut.productId;
+
+    ///select : 내의 특정 속성의 '변화'를 감지하여 재빌드
+    final isSelected = context.select(
+      (CartListBloc bloc) => bloc.state.selectedProduct.contains(productId),
+    );
+
     return Padding(
       padding: const EdgeInsets.only(left: 16, top: 20, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ///개별 선택
           SvgIconButton(
-            icon: AppIcons.checkMarkCircle,
-            color: colorScheme.contentFourth,
-            //TODO 상품 선택
-            onPressed: null,
+            icon: (isSelected)
+                ? AppIcons.checkMarkCircleFill
+                : AppIcons.checkMarkCircle,
+            color:
+                (isSelected) ? colorScheme.primary : colorScheme.contentFourth,
+            onPressed: () =>
+                context.read<CartListBloc>().add(CartListSelected(cart: cart)),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -37,22 +54,23 @@ class CartProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '상품이름',
-                          style: textTheme.titleSmall?.copyWith(
-                            color: colorScheme.contentPrimary,
-                          ),
-                        ),
-                      ],
+                    Expanded(
+                      child: Text(
+                        cart.prodcut.title,
+                        style: textTheme.titleSmall
+                            ?.copyWith(color: colorScheme.contentPrimary),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ),
                     Center(
+                      ///개별 삭제
                       child: SvgIconButton(
                         icon: AppIcons.close,
                         color: colorScheme.contentTertiary,
-                        //TODO 장바구니에서 상품 삭제
-                        onPressed: () {},
+                        onPressed: () => context
+                            .read<CartListBloc>()
+                            .add(CartListDeleted(productIds: [productId])),
                       ),
                     ),
                   ],
@@ -61,8 +79,8 @@ class CartProductCard extends StatelessWidget {
                 Row(
                   children: [
                     /// 상품 이미지
-                    Container(
-                      color: Colors.yellow,
+                    Image.network(
+                      cart.prodcut.imageUrl,
                       width: _imageWidth,
                       height: _imageHeight,
                     ),
@@ -73,16 +91,16 @@ class CartProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '7,300원',
+                          (cart.prodcut.price * cart.quantity).toWon(),
                           style: textTheme.titleMedium.bold?.copyWith(
                             color: colorScheme.contentPrimary,
                           ),
                         ),
                         const SizedBox(height: 20),
                         CounterBtn(
-                          quantity: 1,
-                          increased: null,
-                          decreased: null,
+                          quantity: cart.quantity,
+                          increased: ()=>context.read<CartListBloc>().add(CartListQtyIncreased(cart: cart)),
+                          decreased: ()=>context.read<CartListBloc>().add(CartListQtyDecreased(cart: cart)),
                         ),
                       ],
                     ),
