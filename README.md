@@ -1,6 +1,9 @@
-## 아키텍쳐
+## 아키텍쳐 Clean Architecture
+<img width="937" alt="f_market_archit" src="https://github.com/hangunhee39/FMarket_flutter/assets/77563098/44640a18-54b1-4308-8eae-bd51956eb8bf">
 
 ## 데모영상
+https://github.com/hangunhee39/FMarket_flutter/assets/77563098/352361dc-6dff-4da4-9cd0-e66b9cfceb24
+
 
 ## 주요 라이브러리
 get_it , injectable : DI
